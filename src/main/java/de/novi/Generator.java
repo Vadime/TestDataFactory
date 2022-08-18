@@ -66,9 +66,26 @@ public class Generator {
     }
 
     public Date genDate() {
+        // Date will be from 0 a.Ch. to today
         int day = r.nextInt(29) + 1;
         int month = r.nextInt(11) + 1;
         int year = r.nextInt(80) + 1940;
+        return new Date(day, month, year);
+    }
+
+    public Date genDeathDate(Date birthDate) {
+        int day = r.nextInt(29) + 1;
+        int month = r.nextInt(11) + 1;
+        int year = r.nextInt(80) + 1940;
+        
+        if(r.nextBoolean()) {
+            // is true -> died
+
+        }else {
+            // is false -> still living
+
+        }
+
         return new Date(day, month, year);
     }
 
@@ -76,7 +93,15 @@ public class Generator {
         return new Adress("Deutschland", "Thüringen", "Erfurt", "99051", "33", "a");
     }
     public String genPhone() {
-        return "0176 22580878";
+        String a = ""; 
+        for (int i = 0; i < 4;i ++) {
+            a += r.nextInt(10);
+        }
+        a += " ";
+        for (int i = 0; i < 8;i ++) {
+            a += r.nextInt(10);
+        }
+        return a;
     }
 
     public ContactMethods genContactMethod(String firstName, String middleName, String lastName) {
@@ -86,7 +111,7 @@ public class Generator {
             ContactMethod method;
             int type = r.nextInt(3);
             if (type == 0) {
-                method = new AdressContactMethod();
+                method = new AdressContactMethod().setData(genAdress().toString());
             } else if (type == 1) {
                 method = new EmailContactMethod().setData(genEmail(firstName, middleName, lastName));
             } else if (type == 2) {
@@ -104,9 +129,10 @@ public class Generator {
         String firstName = genFirstName();
         String middleName = genMiddleName();
         String lastName = genLastName();
+        Date birthDate = genDate();
+        Date deathDate = genDeathDate(birthDate);
 
-
-        return new Individual(lastName, middleName, firstName, genDate(), genDate(), genAdress(),
+        return new Individual(lastName, middleName, firstName, birthDate, deathDate, genAdress(),
                 genAdress(), genContactMethod(firstName, middleName, lastName));
     }
 

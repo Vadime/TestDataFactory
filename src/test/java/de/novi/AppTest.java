@@ -8,11 +8,9 @@ import org.junit.Test;
  * Unit test for simple App.
  */
 public class AppTest {
-    /**
-     * Rigorous Test :-)
-     */
+
     @Test
-    public void shouldAnswerWithTrue() {
+    public void printIndividual() {
         Generator generator = new Generator();
         System.out.println(generator.genIndividual().toString());
     }
